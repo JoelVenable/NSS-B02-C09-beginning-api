@@ -29,6 +29,40 @@
       "name": "Tuscan Soup",
       "category": "vegetarian",
       "ethnicity": "italian"
+    },
+    {
+      "name": "Toast",
+      "category": "Grilled Cheese",
+      "ethnicity": "American",
+      "id": 7
+    },
+    {
+      "name": "Toast",
+      "category": "Brie Cheese",
+      "ethnicity": "French",
+      "id": 8
+    }
+  ],
+  "drinks": [
+    {
+      "name": "water",
+      "alcoholic": false,
+      "id": 1
+    },
+    {
+      "name": "Gin and Tonic",
+      "alcoholic": true,
+      "id": 2
+    },
+    {
+      "name": "vodka soda",
+      "alcoholic": true,
+      "id": 3
+    },
+    {
+      "name": "old fashioned",
+      "alcoholic": true,
+      "id": 4
     }
   ]
 }
