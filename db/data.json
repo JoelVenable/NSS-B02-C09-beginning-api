@@ -4,43 +4,50 @@
       "id": 1,
       "name": "Linguine",
       "category": "pasta",
-      "ethnicity": "italian"
+      "ethnicity": "italian",
+      "barcode": "8076809523509"
     },
     {
       "id": 2,
       "name": "Massaman curry",
       "category": "curry",
-      "ethnicity": "thai"
+      "ethnicity": "thai",
+      "barcode": "3270160868681"
     },
     {
       "id": 3,
       "name": "Green curry",
       "category": "curry",
-      "ethnicity": "thai"
+      "ethnicity": "thai",
+      "barcode": "0044738102353"
     },
     {
       "id": 4,
       "name": "Ravioli Funghi",
       "category": "pasta",
-      "ethnicity": "italian"
+      "ethnicity": "italian",
+      "barcode": "8001665127585"
     },
     {
       "id": 5,
       "name": "Tuscan Soup",
       "category": "vegetarian",
-      "ethnicity": "italian"
+      "ethnicity": "italian",
+      "barcode": "5000169116562"
     },
     {
       "name": "Toast",
       "category": "Grilled Cheese",
       "ethnicity": "American",
-      "id": 7
+      "id": 7,
+      "barcode": "5000169116562"
     },
     {
-      "name": "Toast",
-      "category": "Brie Cheese",
+      "name": "Brie Cheese",
+      "category": "cheese",
       "ethnicity": "French",
-      "id": 8
+      "id": 8,
+      "barcode": "3228021950129"
     }
   ],
   "drinks": [
