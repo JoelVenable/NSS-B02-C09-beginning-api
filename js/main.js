@@ -1,25 +1,29 @@
-function getData() {
-  fetch("http://localhost:8088/food")
-    .then(foods => foods.json())
-    .then(parsedFoods => {
-      parsedFoods.forEach(food => {
-        getFoodInfo(food.barcode)
-          .then(foodData => {
+const API = {
+  local: "http://localhost:8088/food",
+  remote(barcode) {
+    return `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`;
+  },
+  getData(url) {
+    return fetch(url).then(object => object.json());
+  }
+};
 
-            console.table(foodData);
+function getFoodInfo() {
+  API.getData(API.local).then(foods => processFoods(foods));
 
-            console.log(foodData.ingredients)
-            let foodHtml = foodFactory(food, foodData);
-            addFoodToDom(foodHtml);
-        });
+  function processFoods(foods) {
+    foods.forEach(food => {
+      getExternalFoodInfo(food.barcode).then(foodData => {
+        let foodHtml = foodFactory(food, foodData);
+        addFoodToDom(foodHtml);
       });
     });
-}
+  }
 
-function getFoodInfo(barcode) {
-  return fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`)
-    .then(response => response.json())
-    .then(foodInfo => {
+
+  function getExternalFoodInfo(barcode) {
+    return API.getData(API.remote(barcode)).then(foodInfo => {
+
       return {
         ingredients: foodInfo.product.ingredients,
         country: foodInfo.product.countries,
@@ -37,28 +41,36 @@ function getFoodInfo(barcode) {
         }
       };
     });
+  }
+
 }
 
+
+
 function foodFactory(foodItem, foodData) {
+
+
+  function makeIngredientList(ingredientList) {
+    let list = "";
+    ingredientList.forEach(ingredient => {
+      list += `<li>${ingredient.text}</li>`;
+    });
+    return list;
+  }
+
+  console.log(foodItem)
   return `<div class="food-item" id="${foodItem.name}">
             <h2>${foodItem.name}</h2>
             <p>Category: ${foodItem.category}</p>
             <p>Ethnicity: ${foodItem.ethnicity}</p>
+            <p>Fat: ${foodData.fat.value} ${foodData.fat.unit}</p>
+            <p>Sugar: ${foodData.sugar.value} ${foodData.sugar.unit}</p>
             <p>Ingredients:</p>
             <ul>${makeIngredientList(foodData.ingredients)}</ul>
           </div>`;
-
 }
 
 
-function makeIngredientList(ingredientList) {
-  console.log('hello from makeIngredientList')
-  let list = '';
-  ingredientList.forEach(ingredient => {
-    list += `<li>${ingredient.name}</li>`
-  })
-  return list;
-}
 
 function addFoodToDom(htmlString) {
   const div = document.querySelector("#container");
@@ -66,5 +78,4 @@ function addFoodToDom(htmlString) {
 }
 
 const dataBtn = document.getElementById("btn-get-data");
-console.log(dataBtn);
-dataBtn.addEventListener("click", getData);
+dataBtn.addEventListener("click", getFoodInfo);
